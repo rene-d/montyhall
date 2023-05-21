@@ -1,2 +1,5 @@
 /target
 .ruff_cache
+/coverage
+*.profraw
+*.profdata

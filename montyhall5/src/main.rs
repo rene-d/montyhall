@@ -9,7 +9,7 @@ struct Args {
     #[arg(short, long, default_value_t = 3, value_parser = clap::value_parser!(u32).range(3..=100))]
     portes: u32,
 
-    #[arg(short, long, default_value_t = 100000)]
+    #[arg(short, long, default_value_t = 100_000)]
     tours: u32,
 }
 
@@ -31,7 +31,7 @@ impl Jeu {
         let mut r = self.gna.gen_range(1..=self.portes - exclu.len() as u32);
 
         let mut exclu_sorted = exclu.iter().collect::<Vec<_>>();
-        exclu_sorted.sort();
+        exclu_sorted.sort_unstable();
 
         for i in exclu_sorted {
             if &r >= i {

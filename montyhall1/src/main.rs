@@ -10,7 +10,7 @@ fn srand(seed: u32) {
     }
 }
 
-// [Linear congruential generator](https://en.wikipedia.org/wiki/Linear_congruential_generator)
+// Générateur congruentiel linéaire
 fn rand() -> u32 {
     unsafe {
         SEED = (SEED.wrapping_mul(1103515245).wrapping_add(12345)) & 0x7fffffff;

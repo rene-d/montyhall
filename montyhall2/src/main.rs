@@ -1,7 +1,7 @@
 // montyhall.rs
 
 const PORTES: u32 = 3;
-const TOURS: u32 = 1000000;
+const TOURS: u32 = 100_000;
 
 struct Gna {
     seed: u32,
@@ -12,15 +12,10 @@ impl Gna {
         Self { seed: 1 }
     }
 
-    fn rand(&mut self) -> u32 {
-        self.seed = (self.seed.wrapping_mul(1103515245).wrapping_add(12345)) & 0x7fffffff;
-        self.seed
-    }
-
     fn randrange(&mut self, r: std::ops::RangeInclusive<u32>) -> u32 {
-        let start = r.start();
-        let end = r.end();
-        self.rand() % (end - start + 1) + start
+        self.seed = (self.seed.wrapping_mul(1103515245).wrapping_add(12345)) & 0x7fffffff;
+
+        self.seed % (r.end() - r.start() + 1) + r.start()
     }
 
     fn choix(&mut self) -> u32 {

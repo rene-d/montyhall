@@ -23,7 +23,7 @@ struct Args {
     portes: u32,
 
     /// Nombre de tirage de simulation.
-    #[arg(short, long, default_value_t = 100000)]
+    #[arg(short, long, default_value_t = 100_000)]
     tours: u32,
 }
 
@@ -43,52 +43,56 @@ impl Jeu {
         }
     }
 
-    /// Retourne un numéro de porte.
-    fn choix(&mut self) -> u32 {
-        self.gna.gen_range(1..=self.portes)
-    }
+    /// Retourne un numéro de porte, sauf éventuellement certains numéros.
+    fn choix_exclu(&mut self, a: Option<u32>, b: Option<u32>) -> u32 {
+        let n = self.portes - (if a.is_some() { 1 } else { 0 }) - (if b.is_some() { 1 } else { 0 });
 
-    /// Retourne un numéro de porte sauf `a` qui est exclu.
-    fn choix_autre(&mut self, a: u32) -> u32 {
-        let mut r = self.gna.gen_range(1..=self.portes - 1);
-        if r >= a {
-            r += 1;
-        }
-        r
-    }
+        let mut r = self.gna.gen_range(1..=n);
 
-    /// Retourne un numéro de porte sauf `a` et `b` qui sont exclus.
-    fn choix_autre_autre(&mut self, a: u32, b: u32) -> u32 {
-        let (a, b) = if b > a { (a, b) } else { (b, a) };
-        let mut r = self.gna.gen_range(1..=self.portes - 2);
-        if r >= a {
-            r += 1;
-        }
-        if r >= b {
-            r += 1;
-        }
+        match (a, b) {
+            (Some(a), None) => {
+                if r >= a {
+                    r += 1;
+                }
+            }
+            (None, Some(b)) => {
+                if r >= b {
+                    r += 1;
+                };
+            }
+            (Some(a), Some(b)) => {
+                if r >= a.min(b) {
+                    r += 1;
+                }
+                if r >= a.max(b) {
+                    r += 1;
+                }
+            }
+            _ => (),
+        };
+
         r
     }
 
     /// Effectue un tour du jeu. Retourne si le joueur gagne
     /// sans changer et en changeant son choix initial.
     fn tour(&mut self) -> (bool, bool) {
-        let voiture = self.choix();
-        let joueur = self.choix();
+        let voiture = self.choix_exclu(None, None);
+        let joueur = self.choix_exclu(None, None);
 
         let presentateur = if joueur == voiture {
             // le joueur choisit la porte à voiture
-            self.choix_autre(voiture)
+            self.choix_exclu(Some(voiture), None)
         } else {
             // le joueur choisit une porte à chèvre
-            self.choix_autre_autre(voiture, joueur)
+            self.choix_exclu(Some(voiture), Some(joueur))
         };
 
         // Le joueur ne change pas de porte
         let sans_changement = joueur == voiture;
 
         // Le joueur change de porte
-        let second = self.choix_autre_autre(presentateur, joueur);
+        let second = self.choix_exclu(Some(presentateur), Some(joueur));
         let avec_changement = second == voiture;
 
         return (sans_changement, avec_changement);
@@ -134,43 +138,52 @@ fn main() {
 mod test {
     use super::*;
 
-    /// Test de la fonction choix()
+    /// Test de la fonction choix_exclu()
     #[test]
-    fn test_choix() {
+    fn test_exclu_0() {
         let mut jeu = Jeu::new(3);
 
         let r = 1..=3;
         for _ in 0..100 {
-            let t = jeu.choix();
+            let t = jeu.choix_exclu(None, None);
             assert!(r.contains(&t));
         }
     }
 
-    /// Test de la fonction choix_autre()
+    /// Test de la fonction choix_exclu()
     #[test]
-    fn test_autre() {
+    fn test_exclu_1() {
         let mut jeu = Jeu::new(3);
 
-        let r = jeu.choix_autre(1);
+        let r = jeu.choix_exclu(Some(1), None);
         assert!(r == 2 || r == 3);
 
-        let r = jeu.choix_autre(2);
+        let r = jeu.choix_exclu(Some(2), None);
         assert!(r == 1 || r == 3);
 
-        let r = jeu.choix_autre(3);
+        let r = jeu.choix_exclu(Some(3), None);
+        assert!(r == 1 || r == 2);
+
+        let r = jeu.choix_exclu(None, Some(1));
+        assert!(r == 2 || r == 3);
+
+        let r = jeu.choix_exclu(None, Some(2));
+        assert!(r == 1 || r == 3);
+
+        let r = jeu.choix_exclu(None, Some(3));
         assert!(r == 1 || r == 2);
     }
 
-    /// Test de la fonction choix_autre_autre()
+    /// Test de la fonction choix_exclu(Some())
     #[test]
-    fn test_autre_autre() {
+    fn test_exclu_2() {
         let mut jeu = Jeu::new(3);
 
-        assert_eq!(jeu.choix_autre_autre(1, 2), 3);
-        assert_eq!(jeu.choix_autre_autre(2, 1), 3);
-        assert_eq!(jeu.choix_autre_autre(1, 3), 2);
-        assert_eq!(jeu.choix_autre_autre(3, 1), 2);
-        assert_eq!(jeu.choix_autre_autre(2, 3), 1);
-        assert_eq!(jeu.choix_autre_autre(3, 2), 1);
+        assert_eq!(jeu.choix_exclu(Some(1), Some(2)), 3);
+        assert_eq!(jeu.choix_exclu(Some(2), Some(1)), 3);
+        assert_eq!(jeu.choix_exclu(Some(1), Some(3)), 2);
+        assert_eq!(jeu.choix_exclu(Some(3), Some(1)), 2);
+        assert_eq!(jeu.choix_exclu(Some(2), Some(3)), 1);
+        assert_eq!(jeu.choix_exclu(Some(3), Some(2)), 1);
     }
 }

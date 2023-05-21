@@ -3,8 +3,8 @@
 from random import randrange
 
 
-PORTES = 5
-TOURS = 1000000
+PORTES = 3
+TOURS = 100_000
 
 
 def choix(*autres):

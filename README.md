@@ -15,12 +15,14 @@ Concepts abordés:
 - éléments du langage
 - règles de nommage, `cargo fmt`, `cargo clippy`
 - débordement des types entiers (`u32`)
-- accès concurrents aux variables globales (`static`) et usage pas recommandé de `unsafe`.
+- accès concurrents aux variables globales (`static`) et usage vraiment pas recommandé de `unsafe`.
 
-```shell
-cargo fmt
-cargo clippy -- -A clippy::pedantic -A clippy::all --no-deps
-```
+Tâches:
+
+- écrire une fonction `rand()` qui implémente un [LCG](https://en.wikipedia.org/wiki/Linear_congruential_generator)
+- écrire une fonction `choix()` qui retourne un nombre entre `1` et `PORTES`, constante fixée à `3`
+- écrire l'algorithme, on ajoutera des fonctions `choix_autre()` qui retournent des nombres aléatoires dans la plage `[1, PORTES]` sauf certains
+- afficher les résultats avec `println!()`
 
 ## Etape 2
 
@@ -33,8 +35,7 @@ Concepts abordés:
 
 Concepts abordés:
 
-- utilisation d'une crate externe (`rand`)
-- les traits
+- utilisation d'un crate externe (`rand`)
 
 ## Etape 4
 
@@ -55,5 +56,7 @@ Concepts abordés:
 
 Concepts abordés:
 
+- suite mot-clé `match` et `Option<T>`
 - documentation
 - tests
+- couverture

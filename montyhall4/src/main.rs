@@ -7,7 +7,7 @@ const PORTES: u32 = 3;
 
 #[derive(Parser)]
 struct Args {
-    #[arg(short, long, default_value_t = 100000)]
+    #[arg(short, long, default_value_t = 100_000)]
     tours: u32,
 }
 
@@ -25,15 +25,7 @@ impl Gna {
     fn randrange(&mut self, a: u32, b: u32) -> u32 {
         self.gna.gen_range(a..=b) as u32
     }
-}
 
-trait Choix {
-    fn choix(&mut self) -> u32;
-    fn choix_autre(&mut self, a: u32) -> u32;
-    fn choix_autre_autre(&mut self, a: u32, b: u32) -> u32;
-}
-
-impl Choix for Gna {
     fn choix(&mut self) -> u32 {
         self.randrange(1, PORTES)
     }
