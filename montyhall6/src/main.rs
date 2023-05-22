@@ -76,6 +76,7 @@ impl Jeu {
 
     /// Effectue un tour du jeu. Retourne si le joueur gagne
     /// sans changer et en changeant son choix initial.
+    /// Retourne deux `bool` qui indiquent si le joueur a gagné sans ou avec changement de porte.
     fn tour(&mut self) -> (bool, bool) {
         let voiture = self.choix_exclu(None, None);
         let joueur = self.choix_exclu(None, None);
@@ -95,7 +96,7 @@ impl Jeu {
         let second = self.choix_exclu(Some(presentateur), Some(joueur));
         let avec_changement = second == voiture;
 
-        return (sans_changement, avec_changement);
+        (sans_changement, avec_changement)
     }
 }
 
@@ -125,9 +126,9 @@ fn main() {
         args.portes, args.tours
     );
 
-    let _1 = Fraction::from(1);
-    let p = _1 / args.portes;
-    let q = _1 / args.portes * (_1 + _1 / (args.portes - 2));
+    let un = Fraction::from(1);
+    let p = un / args.portes;
+    let q = un / args.portes * (un + un / (args.portes - 2));
     println!(
         "\x1B[3mportes={} tours={} sans={p:<7.5} avec={q:<7.5}\x1B[0m",
         args.portes, args.tours

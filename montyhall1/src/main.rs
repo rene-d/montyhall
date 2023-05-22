@@ -4,7 +4,13 @@ const PORTES: u32 = 3;
 
 static mut SEED: u32 = 1;
 
-fn srand(seed: u32) {
+// Initialise le générateur de nombres aléatoires
+fn srand() {
+    let seed = std::time::SystemTime::now()
+        .duration_since(std::time::UNIX_EPOCH)
+        .unwrap()
+        .subsec_nanos();
+
     unsafe {
         SEED = seed;
     }
@@ -44,11 +50,7 @@ fn choix_autre_autre(a: u32, b: u32) -> u32 {
 }
 
 fn main() {
-    let t = std::time::SystemTime::now()
-        .duration_since(std::time::UNIX_EPOCH)
-        .unwrap()
-        .subsec_nanos();
-    srand(t);
+    srand();
 
     let voiture = choix();
     let joueur = choix();

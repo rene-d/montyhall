@@ -8,6 +8,9 @@ TOURS = 100_000
 
 
 def choix(*autres):
+    """
+    Retourne un nombre aléatoire entre `1` et `PORTES`, sauf ceux passés en paramètre.
+    """
     while True:
         r = randrange(1, PORTES + 1)
         if r not in autres:

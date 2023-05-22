@@ -17,7 +17,7 @@ impl Gna {
     }
 
     fn randrange(&mut self, a: u32, b: u32) -> u32 {
-        self.gna.gen_range(a..=b) as u32
+        self.gna.gen_range(a..=b)
     }
 
     fn choix(&mut self) -> u32 {
