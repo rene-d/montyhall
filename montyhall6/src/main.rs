@@ -133,6 +133,19 @@ fn main() {
         "\x1B[3mportes={} tours={} sans={p:<7.5} avec={q:<7.5}\x1B[0m",
         args.portes, args.tours
     );
+
+    println!(r"
+Au début, on a une chance sur trois de trouver la voiture. Si on ne change pas
+de porte, la probabilité ne change évidemment pas, et est : 1/3.
+
+En revanche, on a deux chances sur trois de trouver une chèvre au début. Si on
+a choisi la porte avec une chèvre, le présentateur ne peut ouvrir que celle
+avec l'autre chèvre. Donc la voiture est nécessairement derrière la troisième
+porte. Ainsi, en changeant de porte, on a la même probabilité de trouver la
+voiture au deuxième tour que trouver une chèvre au début, soit : 2/3.
+
+CQFD 🧐
+");    
 }
 
 #[cfg(test)]
