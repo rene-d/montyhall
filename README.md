@@ -8,14 +8,39 @@ Prérequis:
 - un accès internet ou _a minima_ aux crates [rand](https://crates.io/crates/rand), [clap](https://crates.io/crates/clap), [fraction](https://crates.io/crates/fraction).
 - des connaissnces en programmation.
 
-## Etape 1 : introduction
+## Introduction
+
+Présentation de Rust. Où trouver de l'information, où se former, comment progresser.
+
+Installer Rust sur un ordinateur : [rustup](https://rustup.rs/)
+
+Installer et utiliser un IDE qui gère Rust : [Visual Studio Code](https://code.visualstudio.com/) + [rust-analyzer](https://rust-analyzer.github.io/) + [CodeLLDB](https://marketplace.visualstudio.com/items?itemName=vadimcn.vscode-lldb) + [Even Better TOML](https://marketplace.visualstudio.com/items?itemName=tamasfe.even-better-toml)
+
+Cargo, le CLI à tout faire :
+
+- Création d'un projet vide : `cargo new --vcs none hello-world`
+- Compiler : `cargo build`, `cargo build --release`
+- Exécuter : `cargo run`, `cargo run --release`
+- Formater (linter) : `cargo fmt`
+- Vérifier (SAST) : `cargo clippy`
+
+## Les préliminaires
+
+- Afficher du texte : `println!("hello");`
+- Déclarer une variable : `let a = 1;`
+- Afficher une variable : `println!("a={}", a);` `println!("a={a}");`
+- Déclarer une variable mutable : `let mut a = 1; a += 1;`
+- Les types numériques : `i32`, `u8`, `f64`, etc.
+- Les structures de contrôle : `if`, `for`, `while`, `loop`, etc.
+- Déclarer une fonction : `fn fonction(arg: type) -> type { }`
+
+## Etape 1
 
 Concepts abordés:
 
-- éléments du langage
 - règles de nommage, `cargo fmt`, `cargo clippy`
 - débordement des types entiers (`u32`)
-- accès concurrents aux variables globales (`static`) et usage vraiment pas recommandé de `unsafe`.
+- accès concurrents aux variables globales (`static`) et usage _vraiment_ pas recommandé de `unsafe`
 
 Tâches:
 
