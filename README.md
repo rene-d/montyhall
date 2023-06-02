@@ -18,21 +18,21 @@ Installer et utiliser un IDE qui gère Rust : [Visual Studio Code](https://code.
 
 Cargo, le CLI à tout faire :
 
-- Création d'un projet vide : `cargo new --vcs none hello-world`
-- Compiler : `cargo build`, `cargo build --release`
-- Exécuter : `cargo run`, `cargo run --release`
-- Formater (linter) : `cargo fmt`
-- Vérifier (SAST) : `cargo clippy`
+- création d'un projet vide : `cargo new --vcs none hello-world`
+- compiler : `cargo build`, `cargo build --release`
+- exécuter : `cargo run`, `cargo run --release`
+- formater (linter) : `cargo fmt`
+- vérifier (SAST) : `cargo clippy`
 
 ## Les préliminaires
 
-- Afficher du texte : `println!("hello");`
-- Déclarer une variable : `let a = 1;`
-- Afficher une variable : `println!("a={}", a);` `println!("a={a}");`
-- Déclarer une variable mutable : `let mut a = 1; a += 1;`
-- Les types numériques : `i32`, `u8`, `f64`, etc.
-- Les structures de contrôle : `if`, `for`, `while`, `loop`, etc.
-- Déclarer une fonction : `fn fonction(arg: type) -> type { }`
+- afficher du texte : `println!("hello");`
+- déclarer une variable : `let a = 1;`
+- afficher une variable : `println!("a={}", a);` `println!("a={a}");`
+- déclarer une variable mutable : `let mut a = 1; a += 1;`
+- les types numériques : `i32`, `u8`, `f64`, etc.
+- les structures de contrôle : `if`, `for`, `while`, `loop`, etc.
+- déclarer une fonction : `fn fonction(arg: type) -> type { }`
 
 ## Etape 1
 
