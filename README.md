@@ -20,10 +20,11 @@ Présentation de Rust.
 - Multi-paradigmes (impératif et fonctionnel)
 - Typage statique fort sans conversion implicite
 - Inférence de types
+- La gestion obligatoire des erreurs
 - Gestion mémoire sans _garbage collector_ vérifiée à la compilation, le **pointeur nul** n'existe pas
 - Gestion de la concurrence intégrée au langage
 - Eco-système complet, riche et vivant
-- Domaine d'utilisation très vaste: du kernel au back-end web et même WASM, en passant par des logiciels système, des outils, des algorithmes sensibles/performants, évidemment Firefox, etc.
+- Domaine d'utilisation très vaste: du kernel au back-end web et même WASM, en passant par des logiciels système, des outils, des systèmes complets, des algorithmes sensibles/performants, évidemment Firefox, etc.
 
 Où trouver de l'information, où se former, comment progresser.
 
